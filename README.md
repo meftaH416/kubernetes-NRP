@@ -1,5 +1,5 @@
 ## 1 Get your namespace
-Get namespace from your institution 
+Get namespace from your institution. Student can be user and a Postdoc or Professor can be admin.
 
 ## 2 Get kubectl tool
 - Go to https://nrp.ai/documentation/userdocs/start/getting-started/
