@@ -3,10 +3,10 @@
 3. git init
 4. In gitlab, create a project/repo
 5. git pull <repo>
-6. add Dockerfile and requirements.txt file and push to gitlab
-   git remote add origin https://gitlab.nrp-nautilus.io/meftahuddin416/deepcoder-finetune.git
-   git branch -M main
-   git push -uf origin main
+6. add Dockerfile and requirements.txt file and push to gitlab <br>
+   git remote add origin https://gitlab.nrp-nautilus.io/meftahuddin416/deepcoder-finetune.git <br>
+   git branch -M main <br>
+   git push -uf origin main <br> 
    
 ## Dockerfile
 FROM nvidia/cuda:12.1.0-cudnn8-devel-ubuntu22.04
