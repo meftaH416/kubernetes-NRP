@@ -36,14 +36,14 @@ EXPOSE 8888
 CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--NotebookApp.token=''", "--NotebookApp.password=''"]
 
 ## Requirements (based on pytorch)
-torch==2.5.1
-torchvision==0.20.1 
-torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cu121
-transformers==4.44.2
-datasets==2.21.0
-peft==0.12.0
-bitsandbytes==0.43.3
-accelerate==0.33.0
-trl==0.9.6
-flash-attn==2.6.3
+torch==2.5.1 <br>
+torchvision==0.20.1  <br>
+torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cu121 <br>
+transformers==4.44.2 <br>
+datasets==2.21.0 <br>
+peft==0.12.0 <br>
+bitsandbytes==0.43.3 <br>
+accelerate==0.33.0 <br>
+trl==0.9.6 <br>
+flash-attn==2.6.3 <br>
 
