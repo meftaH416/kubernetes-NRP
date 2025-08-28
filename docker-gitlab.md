@@ -13,23 +13,23 @@ FROM nvidia/cuda:12.1.0-cudnn8-devel-ubuntu22.04
 
 WORKDIR /app
 
-# Install system dependencies
+#### Install system dependencies
 RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip \
     && rm -rf /var/lib/apt/lists/*
 
-# Set Python 3 as default
+#### Set Python 3 as default
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
-# Copy requirements file
+#### Copy requirements file
 COPY requirements.txt .
 
-# Install Python dependencies including Jupyter
+#### Install Python dependencies including Jupyter
 RUN pip install --no-cache-dir -r requirements.txt \
     && pip install --no-cache-dir jupyter notebook
 
-# Expose Jupyter port
+#### Expose Jupyter port
 EXPOSE 8888
 
 # Entry point for Jupyter Notebook
