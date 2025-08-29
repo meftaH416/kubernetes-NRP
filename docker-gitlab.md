@@ -2,11 +2,14 @@
 2. move there [cd <>]
 3. git init
 4. In gitlab, create a project/repo
-5. git pull <repo>
-6. add Dockerfile and requirements.txt file and push to gitlab <br>
+5. Go to Preference by clicking the Gitlab Name. Then go to Access tokens and create token with a name.
+6. 
+7. git pull <repo>
+8. add Dockerfile and requirements.txt file and push to gitlab <br>
    git remote add origin https://gitlab.nrp-nautilus.io/meftahuddin416/deepcoder-finetune.git <br>
    git branch -M main <br>
-   git push -uf origin main <br> 
+   -- First time use:  git push https://meftahuddin416:glpat-xxxxxxxxxxxxxxxxxxxx@gitlab.nrp-nautilus.io/meftahuddin416/deepcoder-finetune.git main
+   -- after that just use: git push -uf origin main <br> 
    
 ## Dockerfile
 FROM nvidia/cuda:12.1.0-cudnn8-devel-ubuntu22.04
