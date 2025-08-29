@@ -66,19 +66,19 @@ build-and-push-job:
   only:
     - main
 
-# Configuring GitLab CI/CD Variables
+## Step 4: Configuring GitLab CI/CD Variables
 
 This guide explains how to configure CI/CD variables (`CI_REGISTRY_USER` and `CI_REGISTRY_PASSWORD`) for the `deepcoder-finetune` project to enable the `.gitlab-ci.yml` pipeline to build and push the Docker image (`registry.gitlab.nrp-nautilus.io/meftahuddin416/deepcoder-finetune:latest`).
 
-## Understanding CI/CD Variables Fields
+### Understanding CI/CD Variables Fields
 
-### Type
+#### Type
 - **Options**:
   - **Variable**: Standard key-value pair (e.g., `CI_REGISTRY_USER=meftahuddin416`).
   - **File**: Stores value as a file path (not needed).
 - **Choice**: Use **Variable** for `CI_REGISTRY_USER` and `CI_REGISTRY_PASSWORD` (simple text values for `.gitlab-ci.yml`).
 
-### Visibility
+#### Visibility
 - **Options**:
   - **Visible**: Value appears in job logs (insecure for tokens).
   - **Masked**: Value hidden in logs, revealable in settings (requires alphanumeric, 8+ characters).
@@ -87,7 +87,7 @@ This guide explains how to configure CI/CD variables (`CI_REGISTRY_USER` and `CI
   - `CI_REGISTRY_USER`: **Visible** (username `meftahuddin416` is not sensitive).
   - `CI_REGISTRY_PASSWORD`: **Masked** (token meets regex; allows updates).
 
-### Flags
+#### Flags
 - **Options**:
   - **Protect variable**: Restricts to protected branches/tags (e.g., `main`).
   - **Expand variable reference**: Allows referencing other variables (e.g., `$OTHER_VAR`).
@@ -95,12 +95,12 @@ This guide explains how to configure CI/CD variables (`CI_REGISTRY_USER` and `CI
   - Check **Protect variable** (pipeline runs on `main`, per `.gitlab-ci.yml`).
   - Uncheck **Expand variable reference** (static values).
 
-### Description (Optional)
+#### Description (Optional)
 - **Choice**:
   - `CI_REGISTRY_USER`: “GitLab username for container registry authentication.”
   - `CI_REGISTRY_PASSWORD`: “Personal access token for container registry push.”
 
-### Key
+#### Key
 - Variable name (e.g., `CI_REGISTRY_USER`, `CI_REGISTRY_PASSWORD`).
 - **Precedence** (highest to lowest):
   1. Pipeline-specific variables (trigger/manual run).
@@ -110,12 +110,12 @@ This guide explains how to configure CI/CD variables (`CI_REGISTRY_USER` and `CI
   5. Predefined variables (e.g., `$CI_REGISTRY`).
 - **Impact**: Project variables override group/instance variables with the same name.
 
-### Value
+#### Value
 - **Choice**:
   - `CI_REGISTRY_USER`: `meftahuddin416`
   - `CI_REGISTRY_PASSWORD`: Personal access token (e.g., `glpat-xxxxxxxxxxxxx`) with `api`, `write_repository`, `write_registry` scopes.
 
-## Step-by-Step Configuration
+### Step-by-Step Configuration
 
 1. **Access CI/CD Variables**:
    - Go to `https://gitlab.nrp-nautilus.io/meftahuddin416/deepcoder-finetune`.
