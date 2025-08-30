@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dep-finetune-jupyter
+  labels: 
+    k8s-app: dep-finetune-jupyter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: dep-finetune-jupyter
+  template:
+    metadata:
+      labels:
+        k8s-app: dep-finetune-jupyter
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: nvidia.com/gpu.product
+                operator: In
+                values:
+                - NVIDIA-A10
+                - NVIDIA-GeForce-RTX-3090
+                - NVIDIA-TITAN-RTX
+                - NVIDIA-RTX-A5000
+                - Quadro-RTX-6000
+      containers:
+      - name: container-finetune-jupyter
+        image: gitlab-registry.nrp-nautilus.io/meftahuddin416/deepcoder-finetune:latest
+        command: ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]
+        resources:
+          requests:
+            cpu: "2"
+            memory: "8Gi"
+          limits:
+            cpu: "2"
+            memory: "8Gi"
+            nvidia.com/gpu: 1
+        volumeMounts:
+        - name: finetune-volume
+          mountPath: /data
+        ports:
+        - containerPort: 8888
+      volumes:
+      - name: finetune-volume
+        persistentVolumeClaim:
+          claimName: pvc-finetune
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dep-finetune-jupyter-service
+spec:
+  selector:
+    k8s-app: dep-finetune-jupyter  # Fixed to match pod label
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8888
+  type: ClusterIP
