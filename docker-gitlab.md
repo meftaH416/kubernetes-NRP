@@ -23,30 +23,18 @@ RUN apt-get update && apt-get install -y \
 
 #### Set Python 3 as default
 RUN ln -s /usr/bin/python3 /usr/bin/python
+RUN pip install --no-cache-dir notebook
 
 #### Copy requirements file
 COPY requirements.txt .
 
 #### Install Python dependencies including Jupyter
-RUN pip install --no-cache-dir -r requirements.txt \
-    && pip install --no-cache-dir jupyter notebook
-
-#### Expose Jupyter port
-EXPOSE 8888
-
-#### Entry point for Jupyter Notebook
-CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--NotebookApp.token=''", "--NotebookApp.password=''"]
+RUN pip install --no-cache-dir -r requirements.txt 
 
 ## Step 2: Requirements (based on pytorch)
 torch==2.5.1 <br>
 torchvision==0.20.1  <br>
 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cu121 <br>
-transformers==4.44.2 <br>
-datasets==2.21.0 <br>
-peft==0.12.0 <br>
-bitsandbytes==0.43.3 <br>
-accelerate==0.33.0 <br>
-trl==0.9.6 <br>
 
 ## Step 3: .gitlab-ci.yml 
 -- https://nrp.ai/documentation/userdocs/development/gitlab/ <br>
@@ -55,22 +43,27 @@ image: gcr.io/kaniko-project/executor:debug
 stages:
   - build-and-push
 
+variables:
+  GODEBUG: "http2client=0"
+  CACHE_REPO: "$CI_REGISTRY_IMAGE/cache"
+
 build-and-push-job:
   stage: build-and-push
-  variables:
-    GODEBUG: "http2client=0"
+  timeout: 3h
   script:
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
-    - /kaniko/executor --cache=true --push-retry=10 --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:latest
-  only:
-    - main
+    - /kaniko/executor
+        --context $CI_PROJECT_DIR
+        --dockerfile $CI_PROJECT_DIR/Dockerfile
+        --cache=false
+        --cache-repo=$CACHE_REPO
+        --destination $CI_REGISTRY_IMAGE:latest
+        --destination $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
 
 ## Step 4: Configuring GitLab CI/CD Variables
-
 This guide explains how to configure CI/CD variables (`CI_REGISTRY_USER` and `CI_REGISTRY_PASSWORD`) for the `deepcoder-finetune` project to enable the `.gitlab-ci.yml` pipeline to build and push the Docker image (`registry.gitlab.nrp-nautilus.io/meftahuddin416/deepcoder-finetune:latest`).
 
 ### Understanding CI/CD Variables Fields
-
 #### Type
 - **Options**:
   - **Variable**: Standard key-value pair (e.g., `CI_REGISTRY_USER=meftahuddin416`).
