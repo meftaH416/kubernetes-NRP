@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-finetune   # 1. Added name
+spec:
+  storageClassName: rook-cephfs-central  # 2. Defined storage class name (followed sknnh)
+  accessModes:
+    - ReadWriteMany            # 3. Edit to many 
+  resources:
+    requests:
+      storage: 100Gi        # 4. Defined storage
