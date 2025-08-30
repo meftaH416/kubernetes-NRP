@@ -2,6 +2,7 @@
 kubectl apply -f pvc-finetune.yaml
 ### Create deployment 
 kubectl apply -f dep-finetune-jupyter.yaml
+### Run deployment
 kubectl get pods -l k8s-app=dep-finetune-jupyter
 -- If not running: kubectl describe pod -l k8s-app=dep-finetune-jupyter
 kubectl get pods -l k8s-app=dep-finetune-jupyter -o name
