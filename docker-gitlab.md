@@ -63,7 +63,7 @@ build-and-push-job:
 ## Step 4: Configuring GitLab CI/CD Variables
 This guide explains how to configure CI/CD variables (`CI_REGISTRY_USER` and `CI_REGISTRY_PASSWORD`) for the `deepcoder-finetune` project to enable the `.gitlab-ci.yml` pipeline to build and push the Docker image (`registry.gitlab.nrp-nautilus.io/meftahuddin416/deepcoder-finetune:latest`).
 
-### Understanding CI/CD Variables Fields
+### Extra: Understanding CI/CD Variables Fields
 #### Type
 - **Options**:
   - **Variable**: Standard key-value pair (e.g., `CI_REGISTRY_USER=meftahuddin416`).
