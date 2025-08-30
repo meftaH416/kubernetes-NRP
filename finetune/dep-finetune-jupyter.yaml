@@ -14,19 +14,6 @@ spec:
       labels:
         k8s-app: dep-finetune-jupyter
     spec:
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: nvidia.com/gpu.product
-                operator: In
-                values:
-                - NVIDIA-A10
-                - NVIDIA-GeForce-RTX-3090
-                - NVIDIA-TITAN-RTX
-                - NVIDIA-RTX-A5000
-                - Quadro-RTX-6000
       containers:
       - name: container-finetune-jupyter
         image: gitlab-registry.nrp-nautilus.io/meftahuddin416/deepcoder-finetune:latest
@@ -39,6 +26,7 @@ spec:
             cpu: "2"
             memory: "8Gi"
             nvidia.com/gpu: 1
+            nvidia.com/gpu.memory: 24Gi  # Requests 24GB GPU memory
         volumeMounts:
         - name: finetune-volume
           mountPath: /data
