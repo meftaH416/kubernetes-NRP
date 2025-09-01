@@ -7,7 +7,9 @@ kubectl get pods -l k8s-app=dep-finetune-jupyter <br>
 -- If not running: kubectl describe pod -l k8s-app=dep-finetune-jupyter <br>
 kubectl get pods -l k8s-app=dep-finetune-jupyter -o name <br>
 kubectl port-forward pod/dep-finetune-jupyter-xxxxxxxx-yyyy 8888:8888 <br>
-
+kubectl logs pod/dep-finetune-jupyter-xxxxxxxx-yyyy
+-- Copy the Link like the following from logs and paste to browser (preferred fresh new))
+http://0.0.0.0:8888/?token=<your-token>
 
 ## After code is run.. delete everything
 kubectl delete deployment dep-finetune-jupyter <br>
