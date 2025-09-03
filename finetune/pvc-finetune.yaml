@@ -8,4 +8,4 @@ spec:
     - ReadWriteMany            # 3. Edit to many 
   resources:
     requests:
-      storage: 100Gi        # 4. Defined storage
+      storage: 50Gi        # 4. Defined storage
